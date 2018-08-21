@@ -10,7 +10,31 @@ import UIKit
 
 class ViewController: UITableViewController {
 
-    let itemarray = ["apple","banana","grape"]
+    @IBAction func barbutton(_ sender: UIBarButtonItem) {
+        var textfield = UITextField()
+        
+        let alert = UIAlertController(title: "Add new Item", message: "", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Add Item", style: .default) {(action) in
+            if textfield.text != ""
+            {
+                self.itemarray.append(textfield.text!)
+                
+            }
+            
+            self.tableView.reloadData()
+        }
+        alert.addTextField { (alerttextfield) in
+            alerttextfield.placeholder = "create new item"
+            print(alerttextfield.text!)
+            textfield = alerttextfield
+        }
+        
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
+        
+    }
+    var itemarray = ["apple","banana","grape"]
     override func viewDidLoad() {
         super.viewDidLoad()
         
