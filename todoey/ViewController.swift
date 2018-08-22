@@ -18,10 +18,12 @@ class ViewController: UITableViewController {
             if textfield.text != ""
             {
                 self.itemarray.append(textfield.text!)
+                self.defaults.set(self.itemarray, forKey: "ToDoeyList")
                 
+                self.tableView.reloadData()
             }
             
-            self.tableView.reloadData()
+            
         }
         alert.addTextField { (alerttextfield) in
             alerttextfield.placeholder = "create new item"
@@ -35,9 +37,14 @@ class ViewController: UITableViewController {
         
     }
     var itemarray = ["apple","banana","grape"]
+    
+    let defaults = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        if let items = defaults.array(forKey: "ToDoeyList") as? [String]
+        {
+            itemarray = items
+        }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
